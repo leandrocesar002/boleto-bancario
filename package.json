@@ -1,0 +1,17 @@
+{
+  "name": "boleto-bancario",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "repository": "https://github.com/leandrocesar002/boleto-bancario.git",
+  "author": "Leandro Santos <leandrocmsantos@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
