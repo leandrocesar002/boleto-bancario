@@ -94,8 +94,11 @@ app.post('/titulos', (request, response) => {
     var restoDV3 = total%10;
     var digitoDV3 = 10-restoDV3;
 
-    var removed = codigo.slice(0,4) + codigo.slice(5,47);
-    var digitoVerificador = codigo.slice(4,5);
+    
+    var digitoVerificador = codigo.slice(32,33);
+
+    var codigoBarras = codigo.slice(0,4) + codigo.slice(32,47) + codigo.slice(4,9) + codigo.slice(10,16) + codigo.slice(16,20) + codigo.slice(21,31);
+    var removed = codigoBarras.slice(0,4) + codigoBarras.slice(5,47);
 
     total=0;    
     for(var y=0; y< arr3.length; y++) {
@@ -104,10 +107,15 @@ app.post('/titulos', (request, response) => {
         sum = 0;
     }
 
+    var restoDV = total%11
 
-    DV = 11 - (total%11)
+    if (restoDV == 0 || restoDV == 1 || restoDV == 10)
+    {
+        restoDV==1;
+    }
+    DV = 11 - restoDV
 
-    if ((digitoDV1 == dvCampo1) && (digitoDV2 == dvCampo2) && (digitoDV3 == dvCampo3) && (digitoVerificador == DV) )
+    if ((digitoDV1 == dvCampo1) && (digitoDV2 == dvCampo2) && (digitoDV3 == dvCampo3) && (digitoVerificador == DV))
     {
     return response.json({
         myDate,
