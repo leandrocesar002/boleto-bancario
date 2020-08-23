@@ -18,13 +18,13 @@ app.post('/titulos', (request, response) => {
     const finalNumber = codigo.slice(33);
 
     //pegar data
-    const date = parseInt(finalNumber.substring(0,4));
+    let date = parseInt(finalNumber.substring(0,4));
 
     //pegar valor
     let value = finalNumber.substring(4);
 
     //fazer soma de data segundo o BB
-    var myDate = new Date('October 07, 1997');
+    var myDate = new Date('10/07/1997');
     myDate.setDate(myDate.getDate() + date);
 
     //remover zeros a esquerda
@@ -133,6 +133,11 @@ app.post('/titulos', (request, response) => {
     }
     DV = 11 - restoDV;
 
+    const tamValue = value.length - 2 ;
+    const valueInteger = value.slice(0, tamValue) ;
+    const decimal = value.slice(tamValue, value.length);
+    value = 'R$: ' + valueInteger + ',' + decimal;
+
     //verificação de boleto para verificar se é valido ou não
     if ((digitoDV1 == dvCampo1) && (digitoDV2 == dvCampo2) && (digitoDV3 == dvCampo3) && (digitoVerificador == DV))
     {
@@ -150,3 +155,5 @@ app.post('/titulos', (request, response) => {
 })     
 
 app.listen(3333);
+
+
