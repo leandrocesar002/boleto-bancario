@@ -33,6 +33,7 @@ app.post('/titulos', (request, response) => {
     const dvCampo3 = codigo.slice(31,32);
 
     const arr2 = [2,1,2,1,2,1,2,1,2,1,2,1,2]; 
+    const arr3 = [4,3,2,9,8,7,6,5,4,3,2,9,8,7,6,5,4,3,2,9,8,7,6,5,4,3,2,9,8,7,6,5,4,3,2,9,8,7,6,5,4,3,2];
     var resto=0;
     var div=0;
     var total=0;
@@ -93,21 +94,24 @@ app.post('/titulos', (request, response) => {
     var restoDV3 = total%10;
     var digitoDV3 = 10-restoDV3;
 
-    if ((digitoDV1 == dvCampo1) && (digitoDV2 == dvCampo2) && (digitoDV3 == dvCampo3))
+    var removed = codigo.slice(0,4) + codigo.slice(5,47);
+    var digitoVerificador = codigo.slice(4,5);
+
+    total=0;    
+    for(var y=0; y< arr3.length; y++) {
+        sum += removed[y]*arr3[y];
+        total = total+sum;
+        sum = 0;
+    }
+
+
+    DV = 11 - (total%11)
+
+    if ((digitoDV1 == dvCampo1) && (digitoDV2 == dvCampo2) && (digitoDV3 == dvCampo3) && (digitoVerificador == DV) )
     {
     return response.json({
         myDate,
         value,
-        campo1,
-        dvCampo1,
-        campo2,
-        dvCampo2,
-        campo3,
-        dvCampo3,
-        total,
-        digitoDV1,
-        digitoDV2,
-        digitoDV3
     });
     }
     else
